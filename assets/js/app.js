@@ -4,8 +4,10 @@ var geoKey = "&key=AIzaSyD-9rm4gqljdlkdqlJyeFe2YHKfEIS3g6o"
 var darkUrl = "https://api.darksky.net/forecast/55c20b7e129d72010d38eb997b53d47e/"
 var darkKey = "55c20b7e129d72010d38eb997b53d47e"
 
-var movieUrl = "https://api.internationalshowtimes.com/v4/cinemas/?apikey=Xr2MeuJCI7mhVLZPpbutMNo68SKQNBGt/"
-var movieLocation = "&near_to="
+var movieUrl = "https://api.internationalshowtimes.com/v4/cinemas/?"
+//https://api.internationalshowtimes.com/v4/cinemas/?location=35.085481,-80.709192&distance=30
+var movieKey = "&apikey=Xr2MeuJCI7mhVLZPpbutMNo68SKQNBGt"
+var movieLocation = "location="
 var movieDistance = "&distance="
 
 var config = {
@@ -19,6 +21,10 @@ var config = {
   firebase.initializeApp(config);
 
   var database = firebase.database();
+
+//   var icons = {
+//       clear: "assets/images/cloudy.png"
+//   }
 
 
 
@@ -99,30 +105,36 @@ var config = {
             console.log("Temperature: " + temp);
         
             var summary = response.currently.summary;
-            console.log("Condtions: " + summary)
+            for(i = 0; i < summary.length; i++)  {
+                summary = summary.replace(" ", "-");
+            }
+            var conditions = summary.toLowerCase();
+            console.log("Condtions: " + conditions);
             
             //Creating a button to hold the city weather info
-            var bugDiv = $("<button>")
+            var bugDiv = $("<div>")
             bugDiv.addClass("bug-div")
             bugDiv.val(lattitude + "," + longitude);
 
             //Add the location, temp, and conditions to button
             //toDo: replace summary div with an icon based on value of summary
             var locationDiv = $("<p>").text(location);
+            var sumDiv = $("<img>")
+            sumDiv.attr("id", conditions);
             var tempDiv = $("<p>").text(temp);
-            var sumDiv = $("<p>").text(summary);
     
             //Append all divs to the button then add button to container
             bugDiv.append(locationDiv);
-            bugDiv.append(tempDiv);
             bugDiv.append(sumDiv);
+            bugDiv.append(tempDiv);
+            
             $("#bug-area").append(bugDiv);
         })
     })
 
-    $("#bug-area").on('click', "button", function()  {
+    $("#bug-area").on('click', "div", function()  {
         var location = $(this).val();
-        var queryURL = movieUrl + movieLocation + location
+        var queryURL = movieUrl + movieLocation + location + movieKey
         console.log(queryURL);
     })
 

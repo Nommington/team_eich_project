@@ -1,0 +1,38 @@
+.bug-div  {
+    display: inline-block;
+    height: 130px;
+    width: 250px;
+    border: solid 3px rgba(30, 24, 192, 0.449);
+    text-align: center;
+}
+
+#clear  {
+    background-image: url("../images/clear.png");
+    background-size: cover;
+    height: 50px;
+    width: 50px;
+}
+
+#rain  {
+    background-image: url("../images/rain.png");
+    background-size: cover;
+    height: 50px;
+    width: 50px;
+}
+
+#light-rain,
+#drizzle  {
+    background-image: url("../images/drizzle.png");
+    background-size: cover;
+    height: 50px;
+    width: 50px;
+}
+
+
+#mostly-cloudy,
+#partly-cloudy  {
+    background-image: url("../images/cloudy.png");
+    background-size: cover;
+    height: 50px;
+    width: 50px;
+}
