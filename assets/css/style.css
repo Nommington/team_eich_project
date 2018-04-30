@@ -1,4 +1,22 @@
+.hidden  {
+    display: none;
+}
+
+#search-term  {
+    width: 70%;
+}
+
+
 .bug-div  {
+    display: inline-block;
+    height: 130px;
+    /* width: 250px; */
+    border: solid 3px rgba(30, 24, 192, 0.449);
+    text-align: center;
+    margin: 15px;
+}
+
+.cinema-div  {
     display: inline-block;
     height: 130px;
     width: 250px;
@@ -11,6 +29,8 @@
     background-size: cover;
     height: 50px;
     width: 50px;
+    border-radius: 100px;
+    border: none
 }
 
 #rain  {
@@ -29,8 +49,7 @@
 }
 
 
-#mostly-cloudy,
-#partly-cloudy  {
+#clouds  {
     background-image: url("../images/cloudy.png");
     background-size: cover;
     height: 50px;
