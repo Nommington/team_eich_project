@@ -1,17 +1,15 @@
 var mapsUrl = "https://maps.googleapis.com/maps/api/";
 var geoCode = "geocode/json?address=";
-var nearBy = "place/nearbysearch/json?location=";
+var nearBy = "place/nearbysearch/json?"
+var locate = "&location=";
 var typeSearch = "&radius=1500&type=restaurant";
 var mapsKey = "&key=AIzaSyD-9rm4gqljdlkdqlJyeFe2YHKfEIS3g6o";
+var placesKey = "&key=AIzaSyCyIytMxm9UxMaTB7NcJk_NNYm9r4PFVMo";
 
-// var darkUrl = "https://api.darksky.net/forecast/55c20b7e129d72010d38eb997b53d47e/"
-// var darkKey = "55c20b7e129d72010d38eb997b53d47e"
-
-// open weather key 
-// api.openweathermap.org/data/2.5/weather?lat=35&lon=139
 var weatherUrl = "https://api.openweathermap.org/data/2.5/forecast?id=524901&APPID=592238e535047ebb1662bcb732c20eb9&lat="
 
-// https://maps.googleapis.com/maps/api/
+
+var yelpKey = "S6BIH0SfrulQ7YOPlHJCWlXsqFfH199mDG2T0dLGuskTrE8k5Z_sFqgP96FIdbQsbvcxBJLxINNESRP9z6ngDJC2P0l27-EWORwirFCg_6Iqga0t3SJjKGm9hgjgWnYx"
 
 var config = {
     apiKey: "AIzaSyBAY1lHQ0eUQ7hBjeAfWo_xSBE4Q3eEkC4",
@@ -80,6 +78,8 @@ var convertLocation = function() {
 
 }
 
+
+
 $("#run-search").on('click', function(event) {
     event.preventDefault();
     convertLocation();
@@ -103,7 +103,7 @@ database.ref().on("child_added", function(snapshot) {
         url: queryURL,
         method: "GET"
     }).then(function(response) {
-
+        console.log(queryURL);
         var kelvin = response.list[0].main.temp;
         var convert = 1.8 * (kelvin-273) + 32;
         var temp = Math.ceil(convert);
@@ -137,22 +137,38 @@ database.ref().on("child_added", function(snapshot) {
     })
 })
 
-$("#bug-area").on('click', "div", function() {
-    
-    // $("#bug-area").addClass("hidden");
-    // $("#cinema-area").removeClass("hidden");
-    var location = $(this).val();
-    var queryURL = mapsUrl + nearBy + location + typeSearch + mapsKey
-    
-    console.log(queryURL);
-    // $.ajax({
-    //     url: queryURL,
-    //     method: "GET"
-    // }).then(function(response)  {
-    //     }
 
-    // })
+
+$("#bug-area").on('click', "div", function() {
+    var yelpURL = "https://api.yelp.com/v3/businesses/search?latitude=-37.8136276&longitude=144.9630576"
+
+    $.ajax({
+        url: yelpURL,
+        method: "GET",
+        authorization: yelpKey
+    })
+}).then(function(response){
+    console.log(response);
 })
+
+    // var service = new google.maps.places.PlacesService();
+    // // $("#bug-area").addClass("hidden");
+    // // $("#cinema-area").removeClass("hidden");
+    // var location = $(this).val();
+    // var placesURL = mapsUrl + nearBy + mapsKey + locate + location + typeSearch 
+    
+    // console.log(placesURL);
+    // // $.ajax({
+    // //     url: placesURL,
+    // //     method: "GET",
+    // //     // headers: {origin: "https://www.google.com"}
+    // //     // dataType: 'jsonp'
+    // // }).then(function(response)  {
+    // //     console.log("Hello");
+
+
+    // // })
+// })
 
 // $("#cinema-area").on('click', ".cinema-div", function(){
 //     var cinemaId = $(this).val();
