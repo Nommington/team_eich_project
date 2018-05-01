@@ -139,17 +139,17 @@ database.ref().on("child_added", function(snapshot) {
 
 
 
-$("#bug-area").on('click', "div", function() {
-    var yelpURL = "https://api.yelp.com/v3/businesses/search?latitude=-37.8136276&longitude=144.9630576"
+// $("#bug-area").on('click', "div", function() {
+//     var yelpURL = "https://api.yelp.com/v3/businesses/search?latitude=-37.8136276&longitude=144.9630576"
 
-    $.ajax({
-        url: yelpURL,
-        method: "GET",
-        authorization: yelpKey
-    })
-}).then(function(response){
-    console.log(response);
-})
+//     $.ajax({
+//         url: yelpURL,
+//         method: "GET",
+//         authorization: yelpKey
+//     })
+// }).then(function(response){
+//     console.log(response);
+// })
 
     // var service = new google.maps.places.PlacesService();
     // // $("#bug-area").addClass("hidden");
