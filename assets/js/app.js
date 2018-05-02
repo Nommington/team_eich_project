@@ -1,10 +1,11 @@
 var mapsUrl = "https://maps.googleapis.com/maps/api/";
 var geoCode = "geocode/json?address=";
 var nearBy = "place/nearbysearch/json?"
-var locate = "&location=";
+var locate = "location=";
 var typeSearch = "&radius=1500&type=restaurant";
 var mapsKey = "&key=AIzaSyD-9rm4gqljdlkdqlJyeFe2YHKfEIS3g6o";
 var placesKey = "&key=AIzaSyCyIytMxm9UxMaTB7NcJk_NNYm9r4PFVMo";
+var cors = "http://cors-proxy.htmldriven.com/?url="
 
 var weatherUrl = "https://api.openweathermap.org/data/2.5/forecast?id=524901&APPID=592238e535047ebb1662bcb732c20eb9&lat="
 
@@ -139,78 +140,38 @@ database.ref().on("child_added", function(snapshot) {
 
 
 
-// $("#bug-area").on('click', "div", function() {
-//     var yelpURL = "https://api.yelp.com/v3/businesses/search?latitude=-37.8136276&longitude=144.9630576"
+$("#bug-area").on('click', "div", function() {
+    $("#bug-area").addClass("hidden");
+    var location = $(this).val();
+    var encode =  mapsUrl + nearBy + locate + location + typeSearch + placesKey
+    var hello = encodeURIComponent(encode);
+    var queryURL = cors + hello;
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function(response){
+        var places = JSON.parse(response.body);
+        var placesResults = places.results;
+        console.log(placesResults);
+        for(i = 0; i < 4; i++)  {
+            var name = placesResults[i].name;
+            var rating = placesResults[i].rating;
 
-//     $.ajax({
-//         url: yelpURL,
-//         method: "GET",
-//         authorization: yelpKey
-//     })
-// }).then(function(response){
-//     console.log(response);
-// })
+            console.log(name + rating);
 
-    // var service = new google.maps.places.PlacesService();
-    // // $("#bug-area").addClass("hidden");
-    // // $("#cinema-area").removeClass("hidden");
-    // var location = $(this).val();
-    // var placesURL = mapsUrl + nearBy + mapsKey + locate + location + typeSearch 
-    
-    // console.log(placesURL);
-    // // $.ajax({
-    // //     url: placesURL,
-    // //     method: "GET",
-    // //     // headers: {origin: "https://www.google.com"}
-    // //     // dataType: 'jsonp'
-    // // }).then(function(response)  {
-    // //     console.log("Hello");
+            var placesDiv = $("<div>");
+            placesDiv.addClass("places-div col-xs-5");
+        
+            var nameDiv = $("<p>").text(name);
+            var ratingDiv = $("<p>").text(rating);
 
+            placesDiv.append(nameDiv);
+            placesDiv.append(ratingDiv);
+            $("#places-area").append(placesDiv);
+        }
 
-    // // })
-// })
+    });
 
-// $("#cinema-area").on('click', ".cinema-div", function(){
-//     var cinemaId = $(this).val();
-//     var queryURL = showUrl + movieId + "&" + cinemaId + movieKey
+})
 
-//     console.log(queryURL);
-// })
-
-
-
-
-// $("#location-search").on('click', function()  {
-//     var longitude = $("#long-term").val().trim();
-//     var lattitude = $("#latt-term").val().trim();
-//     console.log(lattitude + longitude);
-
-// var queryURL = darkUrl + lattitude + "," + longitude
-// $.ajax({
-//     url: queryURL,
-//     method: "GET"
-// })  .then(function(response)  {
-
-//     console.log(response)
-
-//     var temp = response.currently.temperature;
-//     var summary = response.currently.icon;
-
-// if(summary = "Rainy")  {
-//     alert("Clear");
-// }
-
-
-//         $("#summary").text(summary);
-//         $("#temperature").text(temp);
-
-
-//     })
-// })
-
-// $("#add-date").on('click', function()  {
-//     var date = $("#date-term").val().trim();
-
-//     moment().format(date, "L");
-//     console.log("This is the date: " + date)
-// })
+  
