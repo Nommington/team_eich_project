@@ -11,7 +11,7 @@ var mapsKey = "&key=AIzaSyD-9rm4gqljdlkdqlJyeFe2YHKfEIS3g6o";
 //Weather API
 var weatherUrl = "https://api.openweathermap.org/data/2.5/forecast?id=524901&APPID=592238e535047ebb1662bcb732c20eb9&lat="
 //CORS Proxy
-var cors = "http://cors-proxy.htmldriven.com/?url="
+var cors = "https://cors-proxy.htmldriven.com/?url="
 
 var config = {
     apiKey: "AIzaSyBAY1lHQ0eUQ7hBjeAfWo_xSBE4Q3eEkC4",
