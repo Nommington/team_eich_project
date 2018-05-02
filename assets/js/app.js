@@ -1,16 +1,17 @@
+//Google Maps API
 var mapsUrl = "https://maps.googleapis.com/maps/api/";
+//latitude and Longitude Search
 var geoCode = "geocode/json?address=";
+//Places search 
 var nearBy = "place/nearbysearch/json?"
 var locate = "location=";
 var typeSearch = "&radius=1500&type=restaurant";
+//Google Maps Key
 var mapsKey = "&key=AIzaSyD-9rm4gqljdlkdqlJyeFe2YHKfEIS3g6o";
-var placesKey = "&key=AIzaSyCyIytMxm9UxMaTB7NcJk_NNYm9r4PFVMo";
-var cors = "http://cors-proxy.htmldriven.com/?url="
-
+//Weather API
 var weatherUrl = "https://api.openweathermap.org/data/2.5/forecast?id=524901&APPID=592238e535047ebb1662bcb732c20eb9&lat="
-
-
-var yelpKey = "S6BIH0SfrulQ7YOPlHJCWlXsqFfH199mDG2T0dLGuskTrE8k5Z_sFqgP96FIdbQsbvcxBJLxINNESRP9z6ngDJC2P0l27-EWORwirFCg_6Iqga0t3SJjKGm9hgjgWnYx"
+//CORS Proxy
+var cors = "http://cors-proxy.htmldriven.com/?url="
 
 var config = {
     apiKey: "AIzaSyBAY1lHQ0eUQ7hBjeAfWo_xSBE4Q3eEkC4",
@@ -24,16 +25,7 @@ firebase.initializeApp(config);
 
 var database = firebase.database();
 
-//   var icons = {
-//       clear: "assets/images/cloudy.png"
-//   }
-
-
-
-// https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=
-// https://api.darksky.net/forecast/55c20b7e129d72010d38eb997b53d47e/35.1001511,-80.8051842
-
-
+//
 var convertLocation = function() {
 
     var addressInput = $("#search-term").val();
@@ -52,15 +44,14 @@ var convertLocation = function() {
 
         var result = response.results[0].geometry.location;
         var location = response.results[0].formatted_address;
-        console.log("This is: " + location)
 
-        var lattitude = result.lat;
+        var latitude = result.lat;
         var longitude = result.lng;
 
         var newLocation = {
 
             location: location,
-            lat: lattitude,
+            lat: latitude,
             lon: longitude
         }
         // Push to firebase
@@ -76,7 +67,7 @@ var convertLocation = function() {
         });
 
     })
-
+    console.log(latitude + " : " + longitude);
 }
 
 
@@ -95,14 +86,13 @@ $("#run-search").on('click', function(event) {
 database.ref().on("child_added", function(snapshot) {
 
     //Getting the values of the firebase objects
-    var lattitude = snapshot.val().lat;
+    var latitude = snapshot.val().lat;
     var longitude = snapshot.val().lon;
     var location = snapshot.val().location;
-    console.log("Lattitude: " + lattitude);
-    console.log("Longitude :" + longitude);
 
 
-    var queryURL = weatherUrl + lattitude + "&lon=" + longitude
+
+    var queryURL = weatherUrl + latitude + "&lon=" + longitude
     $.ajax({
         url: queryURL,
         method: "GET"
@@ -111,14 +101,12 @@ database.ref().on("child_added", function(snapshot) {
         var kelvin = response.list[0].main.temp;
         var convert = 1.8 * (kelvin-273) + 32;
         var temp = Math.ceil(convert);
-        console.log("Temperature: " + temp);
 
         var summary = response.list[0].weather[0].main;
         for (i = 0; i < summary.length; i++) {
             summary = summary.replace(" ", "-");
         }
         var conditions = summary.toLowerCase();
-        console.log("Condtions: " + conditions);
 
         //Creating a button to hold the city weather info
         var bugDiv = $("<div>")
@@ -140,7 +128,8 @@ database.ref().on("child_added", function(snapshot) {
 
 
         var placesButton = $("<button>")
-        placesButton.val(lattitude + "," + longitude);
+        placesButton.addClass("places-button")
+        placesButton.val(latitude + "," + longitude);
         placesButton.text("Get Nearby Places");
         bugDiv.append(placesButton);
 
@@ -150,7 +139,7 @@ database.ref().on("child_added", function(snapshot) {
 
 
 
-$("#bug-area").on('click', "button", function() {
+$("#bug-area").on('click', ".places-button", function() {
     $("#bug-area").addClass("hidden");
     $("#places-search-div").removeClass("hidden");
     var location = $(this).val();
@@ -172,9 +161,8 @@ $("#places-submit").on('click', function()  {
     $("#places-search-div").addClass("hidden");
     $("#places-area").removeClass("hidden");
 
-    var encode = mapsUrl + nearBy + locate + location + "&radius=" + distance + "&type=" + type + placesKey;
+    var encode = mapsUrl + nearBy + locate + location + "&radius=" + distance + "&type=" + type + mapsKey;
     var encodeCors = encodeURIComponent(encode);
-    console.log(encode);
     var queryURL = cors + encodeCors;
 
     $.ajax({
@@ -184,44 +172,36 @@ $("#places-submit").on('click', function()  {
         var places = JSON.parse(response.body);
         var placesResults = places.results;
         console.log(placesResults);
-        for(i = 0; i < 4; i++)  {
+        for(i = 0; i < 10; i++)  {
+            var icon = placesResults[i].icon;
             var name = placesResults[i].name;
             var rating = placesResults[i].rating;
-            var icon = placesResults[i].icon;
-            console.log(name + rating + icon);
+            var address = placesResults[i].vicinity;
+            console.log(map);
+            
+            
 
-            var placesDiv = $("<div>");
-            placesDiv.addClass("places-div col-xs-5");
+
+            $("tbody").append(
+                "<tr><td><img src='" + icon + "'></td><td>"+ name + "</td><td>" + rating + "</td><td>" + address + "</td><td>" + map +  "</td></tr>");
+
+            // var placesDiv = $("<div>");
+            // placesDiv.addClass("places-div col-xs-5");
         
-            var iconDiv = $("<img>").attr("src", icon);
-            iconDiv.addClass("img-responsive");
-            var nameDiv = $("<p>").text(name);
-            var ratingDiv = $("<p>").text(rating);
+            // var iconDiv = $("<img>").attr("src", icon);
+            // iconDiv.addClass("img-responsive");
+            // var nameDiv = $("<p>").text(name);
+            // var ratingDiv = $("<p>").text(rating);
 
-            placesDiv.append(iconDiv)
-            placesDiv.append(nameDiv);
-            placesDiv.append(ratingDiv);
-            $("#places-area").append(placesDiv);
+            // placesDiv.append(iconDiv)
+            // placesDiv.append(nameDiv);
+            // placesDiv.append(ratingDiv);
+            // $("#places-area").append(placesDiv);
         }
     })
 
 })
 
-
-    // var location = $(this).val();
-    // var encode =  mapsUrl + nearBy + locate + location + typeSearch + placesKey
-    // var hello = encodeURIComponent(encode);
-    // console.log(hello);
-    // var queryURL = cors + hello;
-    // $.ajax({
-    //     url: queryURL,
-    //     method: "GET"
-    // }).then(function(response){
-    //     console.log("Google " + queryURL)
-    
-    
-
-    // });
 
 
 
