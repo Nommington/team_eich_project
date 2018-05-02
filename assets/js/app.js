@@ -83,6 +83,9 @@ var convertLocation = function() {
 
 $("#run-search").on('click', function(event) {
     event.preventDefault();
+    $("#bug-area").removeClass("hidden");
+    $("#places-area").empty();
+    $("#places-area").addClass("hidden");
     convertLocation();
     $("#search-term").val("");
 
@@ -120,7 +123,7 @@ database.ref().on("child_added", function(snapshot) {
         //Creating a button to hold the city weather info
         var bugDiv = $("<div>")
         bugDiv.addClass("bug-div col-xs-5 col-sm-5")
-        bugDiv.val(lattitude + "," + longitude);
+        
 
         //Add the location, temp, and conditions to button
         //toDo: replace summary div with an icon based on value of summary
@@ -134,44 +137,93 @@ database.ref().on("child_added", function(snapshot) {
         bugDiv.append(sumDiv);
         bugDiv.append(tempDiv);
 
+
+
+        var placesButton = $("<button>")
+        placesButton.val(lattitude + "," + longitude);
+        placesButton.text("Get Nearby Places");
+        bugDiv.append(placesButton);
+
         $("#bug-area").append(bugDiv);
     })
 })
 
 
 
-$("#bug-area").on('click', "div", function() {
+$("#bug-area").on('click', "button", function() {
     $("#bug-area").addClass("hidden");
+    $("#places-search-div").removeClass("hidden");
     var location = $(this).val();
-    var encode =  mapsUrl + nearBy + locate + location + typeSearch + placesKey
-    var hello = encodeURIComponent(encode);
-    var queryURL = cors + hello;
+    $("#location-input").val(location);
+})
+
+$("#places-submit").on('click', function()  {
+    var distanceMiles = $("#distance").val();
+    var miles = parseInt(distanceMiles);
+    var meters = miles/0.00062137;
+    var distance = Math.ceil(meters);
+
+    var typeVal = $("#type").val();
+    var typeRep = typeVal.replace(" ", "_");
+    var type = typeRep.toLowerCase();
+
+    var location = $("#location-input").val();
+
+    $("#places-search-div").addClass("hidden");
+    $("#places-area").removeClass("hidden");
+
+    var encode = mapsUrl + nearBy + locate + location + "&radius=" + distance + "&type=" + type + placesKey;
+    var encodeCors = encodeURIComponent(encode);
+    console.log(encode);
+    var queryURL = cors + encodeCors;
+
     $.ajax({
         url: queryURL,
         method: "GET"
-    }).then(function(response){
+    }).then(function(response)  {
         var places = JSON.parse(response.body);
         var placesResults = places.results;
         console.log(placesResults);
         for(i = 0; i < 4; i++)  {
             var name = placesResults[i].name;
             var rating = placesResults[i].rating;
-
-            console.log(name + rating);
+            var icon = placesResults[i].icon;
+            console.log(name + rating + icon);
 
             var placesDiv = $("<div>");
             placesDiv.addClass("places-div col-xs-5");
         
+            var iconDiv = $("<img>").attr("src", icon);
+            iconDiv.addClass("img-responsive");
             var nameDiv = $("<p>").text(name);
             var ratingDiv = $("<p>").text(rating);
 
+            placesDiv.append(iconDiv)
             placesDiv.append(nameDiv);
             placesDiv.append(ratingDiv);
             $("#places-area").append(placesDiv);
         }
-
-    });
+    })
 
 })
+
+
+    // var location = $(this).val();
+    // var encode =  mapsUrl + nearBy + locate + location + typeSearch + placesKey
+    // var hello = encodeURIComponent(encode);
+    // console.log(hello);
+    // var queryURL = cors + hello;
+    // $.ajax({
+    //     url: queryURL,
+    //     method: "GET"
+    // }).then(function(response){
+    //     console.log("Google " + queryURL)
+    
+    
+
+    // });
+
+
+
 
   

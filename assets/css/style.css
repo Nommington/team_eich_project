@@ -2,6 +2,12 @@
     display: none;
 }
 
+img  {
+    height: 32px;
+    width: 32px;
+    display: block;
+    margin: 0 auto;
+}
 #search-term  {
     width: 70%;
 }
