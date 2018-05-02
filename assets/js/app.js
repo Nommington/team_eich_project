@@ -11,7 +11,7 @@ var mapsKey = "&key=AIzaSyD-9rm4gqljdlkdqlJyeFe2YHKfEIS3g6o";
 //Weather API
 var weatherUrl = "https://api.openweathermap.org/data/2.5/forecast?id=524901&APPID=592238e535047ebb1662bcb732c20eb9&lat="
 //CORS Proxy
-var cors = "https://cors-proxy.htmldriven.com/?url="
+var cors = "http://cors-proxy.htmldriven.com/?url="
 
 var config = {
     apiKey: "AIzaSyBAY1lHQ0eUQ7hBjeAfWo_xSBE4Q3eEkC4",
@@ -177,13 +177,14 @@ $("#places-submit").on('click', function()  {
             var name = placesResults[i].name;
             var rating = placesResults[i].rating;
             var address = placesResults[i].vicinity;
-            console.log(map);
+            var mapIcon = "google-maps.png";
+            
             
             
 
 
             $("tbody").append(
-                "<tr><td><img src='" + icon + "'></td><td>"+ name + "</td><td>" + rating + "</td><td>" + address + "</td><td>" + map +  "</td></tr>");
+                "<tr><td><img src='" + icon + "'></td><td>"+ name + "</td><td>" + rating + "</td><td>" + address + "</td><td><img src='" + mapIcon + "'</td></tr>");
 
             // var placesDiv = $("<div>");
             // placesDiv.addClass("places-div col-xs-5");
