@@ -12,7 +12,15 @@ img  {
     width: 70%;
 }
 
+#map-div  {
+    height: 300px;
+    width: 100%;
+}
 
+iframe   {
+    height: 300px;
+    width: 100%;
+}
 .bug-div  {
     display: inline-block;
     height: 130px;

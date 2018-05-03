@@ -67,7 +67,6 @@ var convertLocation = function() {
         });
 
     })
-    console.log(latitude + " : " + longitude);
 }
 
 
@@ -174,34 +173,73 @@ $("#places-submit").on('click', function()  {
         console.log(placesResults);
         for(i = 0; i < 10; i++)  {
             var icon = placesResults[i].icon;
+            var iconTD = $("<td>")
+            var iconImage = $("<img>").attr('src', icon);
+            iconTD.append(iconImage);
+            var lat = placesResults[i].geometry.location.lat;
+            var lng = placesResults[i].geometry.location.lng;
+            var location = lat + "," + lng;
             var name = placesResults[i].name;
+            var nameDiv = $("<td>").text(name);
             var rating = placesResults[i].rating;
             var address = placesResults[i].vicinity;
-            var mapIcon = "google-maps.png";
-            
-            
-            
-
-
-            $("tbody").append(
-                "<tr><td><img src='" + icon + "'></td><td>"+ name + "</td><td>" + rating + "</td><td>" + address + "</td><td><img src='" + mapIcon + "'</td></tr>");
-
-            // var placesDiv = $("<div>");
-            // placesDiv.addClass("places-div col-xs-5");
+            var mapsIcon = "google-maps.png";
+            var iconDiv = $("<td>");
+            var iconMap = $("<img>");
+            var placeId = placesResults[i].place_id;
+            console.log(placeId);
+            iconMap.attr("data-name", placeId)
+            iconMap.attr("id", "map-search");
         
-            // var iconDiv = $("<img>").attr("src", icon);
-            // iconDiv.addClass("img-responsive");
-            // var nameDiv = $("<p>").text(name);
-            // var ratingDiv = $("<p>").text(rating);
-
-            // placesDiv.append(iconDiv)
-            // placesDiv.append(nameDiv);
-            // placesDiv.append(ratingDiv);
-            // $("#places-area").append(placesDiv);
+            iconMap.attr("src", mapsIcon);
+            iconDiv.append(iconMap);
+        
+            var tableRow = $("<tr>");
+            tableRow.append(iconTD);
+            tableRow.append(nameDiv);
+            tableRow.append(iconDiv);
+            $("tbody").append(tableRow);
+    
         }
     })
 
 })
+
+$(document).on('click', "#map-search", function() {
+    $("#map-div").empty();
+    var placeID = $(this).attr("data-name");
+    console.log(placeID);
+
+    var iframe = $('<iframe frameborder=0 style="border:0" src=https://www.google.com/maps/embed/v1/place?key=AIzaSyB8GERsvE3gXS0XvGeTLpol5NpS9kZgEIc&q=place_id:' + placeID + '></iframe>');
+    $("#map-div").append(iframe);
+    });
+
+// var placeId = "";
+// try { // just incase a response does not have a placeId - Sam
+//     placeId = placesResults[i].place_id;
+// } catch (err) {
+//     console.log("Place id not available");
+// } finally {
+//     console.log(name + rating + icon + placeId);
+//     var placesDiv = $("<div>");
+//     placesDiv.addClass("places-div col-xs-5");
+//     var iconDiv = $("<img>").attr("src", icon);
+//     iconDiv.addClass("img-responsive");
+//     var nameDiv = $("<p>").text(name);
+//     var ratingDiv = $("<p>").text(rating);
+//     placesDiv.append(iconDiv)
+//     placesDiv.append(nameDiv);
+//     placesDiv.append(ratingDiv);
+//     var mapDiv = $("<img>").attr("placeId", placeId); // put a place ID on the image
+//     mapDiv.addClass("img-map"); // put class on the icon so we can put a click event
+//     placesDiv.append(mapDiv); // append to placesDiv
+//     $("#places-area").append(placesDiv);
+// }
+// }
+// })
+// });
+// // map click event
+// 
 
 
 
