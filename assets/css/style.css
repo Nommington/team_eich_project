@@ -83,6 +83,8 @@ img  {
     position: relative;
     margin: 0 auto;
     width: auto;
+    height: 32px;
+    width: 32px;
 }
 
 .temp {

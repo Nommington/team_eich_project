@@ -183,7 +183,7 @@ $("#places-submit").on('click', function()  {
             var nameDiv = $("<td>").text(name);
             var rating = placesResults[i].rating;
             var address = placesResults[i].vicinity;
-            var mapsIcon = "google-maps.png";
+            var mapsIcon = "assets/images/google-maps.png";
             var iconDiv = $("<td>");
             var iconMap = $("<img>");
             var placeId = placesResults[i].place_id;
