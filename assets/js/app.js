@@ -129,7 +129,7 @@ database.ref().on("child_added", function(snapshot) {
         var placesButton = $("<img class='img-responsive'>")
         placesButton.addClass("places-button")
         placesButton.val(latitude + "," + longitude);
-        placesButton.attr('src', "places.png");
+        placesButton.attr('src', "assets/images/places.png");
         bugDiv.append(placesButton);
 
         $("#bug-area").append(bugDiv);
