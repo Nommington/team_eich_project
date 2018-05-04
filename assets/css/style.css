@@ -3,31 +3,28 @@
 }
 
 img  {
-    height: 20px;
-    width: 20px;
-    display: block;
+    height: 50%;
     margin: 0 auto;
+    border: 0px;
+    position: relative;
+    bottom: auto;
 }
+
 #search-term  {
     width: 70%;
 }
 
-#map-div  {
-    height: 300px;
-    width: 100%;
-}
 
-iframe   {
-    height: 300px;
-    width: 100%;
-}
 .bug-div  {
     display: inline-block;
     height: 130px;
     /* width: 250px; */
-    border: solid 3px rgba(30, 24, 192, 0.449);
     text-align: center;
     margin: 15px;
+    color: #fff;
+    padding: 15px; 
+    position: relative;
+    top: 0; left: 0; bottom: 0; right: 0;
 }
 
 .places-div  {
@@ -40,33 +37,64 @@ iframe   {
 }
 
 #clear  {
-    background-image: url("../images/clear.png");
-    background-size: cover;
-    height: 50px;
-    width: 50px;
-    border-radius: 100px;
-    border: none
+    content: url("../images/clear.png");
 }
 
 #rain  {
-    background-image: url("../images/rain.png");
-    background-size: cover;
-    height: 50px;
-    width: 50px;
+    content: url("../images/rain.png");
 }
 
 #light-rain,
 #drizzle  {
-    background-image: url("../images/drizzle.png");
-    background-size: cover;
-    height: 50px;
-    width: 50px;
+    content: url("../images/drizzle.png");
 }
-
 
 #clouds  {
-    background-image: url("../images/cloudy.png");
-    background-size: cover;
-    height: 50px;
-    width: 50px;
+    content: url("../images/partly-sunny.png");
+
 }
+
+.col-sm-2, .col-xs-2 {
+    height: 368px;
+    border-radius: 10px;
+}
+
+.col-sm-2:nth-child(5n+1) {
+    background-color: #73a8de;
+}
+
+.col-sm-2:nth-child(5n+2) {
+    background-color: #5c9bdc;
+}
+
+.col-sm-2:nth-child(5n+3) {
+    background-color: #2e7dcf;
+}
+
+.col-sm-2:nth-child(5n+4) {
+    background-color: #2463a4;
+}
+
+.col-sm-2:nth-child(5n+5) {
+    background-color: #1d446d;
+}
+
+.places-button {
+    position: relative;
+    margin: 0 auto;
+    width: auto;
+}
+
+.temp {
+    font-size: 25pt;
+   
+    margin-bottom: 10%;
+    right: 75px;
+}
+
+.location {
+    height: 15%;
+    margin-bottom: 15px;
+}
+
+

@@ -109,15 +109,15 @@ database.ref().on("child_added", function(snapshot) {
 
         //Creating a button to hold the city weather info
         var bugDiv = $("<div>")
-        bugDiv.addClass("bug-div col-xs-5 col-sm-5")
+        bugDiv.addClass("bug-div col-xs-2 col-sm-2")
         
 
         //Add the location, temp, and conditions to button
         //toDo: replace summary div with an icon based on value of summary
-        var locationDiv = $("<p>").text(location);
-        var sumDiv = $("<img>")
+        var locationDiv = $("<p class='location'>").text(location);
+        var sumDiv = $("<img class='img-responsive'>")
         sumDiv.attr("id", conditions);
-        var tempDiv = $("<p>").text(temp);
+        var tempDiv = $("<p class='temp'>").text(temp);
 
         //Append all divs to the button then add button to container
         bugDiv.append(locationDiv);
@@ -126,10 +126,10 @@ database.ref().on("child_added", function(snapshot) {
 
 
 
-        var placesButton = $("<button>")
+        var placesButton = $("<img class='img-responsive'>")
         placesButton.addClass("places-button")
         placesButton.val(latitude + "," + longitude);
-        placesButton.text("Get Nearby Places");
+        placesButton.attr('src', "places.png");
         bugDiv.append(placesButton);
 
         $("#bug-area").append(bugDiv);
@@ -214,35 +214,3 @@ $(document).on('click', "#map-search", function() {
     $("#map-div").append(iframe);
     });
 
-// var placeId = "";
-// try { // just incase a response does not have a placeId - Sam
-//     placeId = placesResults[i].place_id;
-// } catch (err) {
-//     console.log("Place id not available");
-// } finally {
-//     console.log(name + rating + icon + placeId);
-//     var placesDiv = $("<div>");
-//     placesDiv.addClass("places-div col-xs-5");
-//     var iconDiv = $("<img>").attr("src", icon);
-//     iconDiv.addClass("img-responsive");
-//     var nameDiv = $("<p>").text(name);
-//     var ratingDiv = $("<p>").text(rating);
-//     placesDiv.append(iconDiv)
-//     placesDiv.append(nameDiv);
-//     placesDiv.append(ratingDiv);
-//     var mapDiv = $("<img>").attr("placeId", placeId); // put a place ID on the image
-//     mapDiv.addClass("img-map"); // put class on the icon so we can put a click event
-//     placesDiv.append(mapDiv); // append to placesDiv
-//     $("#places-area").append(placesDiv);
-// }
-// }
-// })
-// });
-// // map click event
-// 
-
-
-
-
-
-  
