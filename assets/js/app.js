@@ -57,15 +57,6 @@ var convertLocation = function() {
         // Push to firebase
         database.ref().push(newLocation)
 
-
-
-        swal({
-            title: "Good job!",
-            text: "You clicked the button!",
-            icon: "success",
-            button: "Aww yiss!",
-        });
-
     })
 }
 
@@ -74,7 +65,7 @@ var convertLocation = function() {
 $("#run-search").on('click', function(event) {
     event.preventDefault();
     $("#bug-area").removeClass("hidden");
-    $("#places-area").empty();
+    $("tr").empty();
     $("#places-area").addClass("hidden");
     convertLocation();
     $("#search-term").val("");
@@ -109,17 +100,17 @@ database.ref().on("child_added", function(snapshot) {
 
         //Creating a button to hold the city weather info
         var bugDiv = $("<div>")
-        bugDiv.addClass("bug-div col-xs-2 col-sm-2")
+        bugDiv.addClass("bug-div col-xs-4 col-sm-2")
         
-
-        //Add the location, temp, and conditions to button
-        //toDo: replace summary div with an icon based on value of summary
+        // var deleteButton =  $("<img class='delete'>");
+        // deleteButton.attr("src", "assets/images/delete.png");
         var locationDiv = $("<p class='location'>").text(location);
         var sumDiv = $("<img class='img-responsive'>")
         sumDiv.attr("id", conditions);
         var tempDiv = $("<p class='temp'>").text(temp);
 
         //Append all divs to the button then add button to container
+        // bugDiv.append(deleteButton);
         bugDiv.append(locationDiv);
         bugDiv.append(sumDiv);
         bugDiv.append(tempDiv);
@@ -140,12 +131,15 @@ database.ref().on("child_added", function(snapshot) {
 
 $("#bug-area").on('click', ".places-button", function() {
     $("#bug-area").addClass("hidden");
-    $("#places-search-div").removeClass("hidden");
+    // $("#places-search-div").removeClass("hidden");
+    $("#myModal").modal();
     var location = $(this).val();
     $("#location-input").val(location);
 })
 
 $("#places-submit").on('click', function()  {
+    
+    $("#table-data").removeClass("hidden");
     var distanceMiles = $("#distance").val();
     var miles = parseInt(distanceMiles);
     var meters = miles/0.00062137;
@@ -157,7 +151,7 @@ $("#places-submit").on('click', function()  {
 
     var location = $("#location-input").val();
 
-    $("#places-search-div").addClass("hidden");
+    // $("#places-search-div").addClass("hidden");
     $("#places-area").removeClass("hidden");
 
     var encode = mapsUrl + nearBy + locate + location + "&radius=" + distance + "&type=" + type + mapsKey;
@@ -175,6 +169,7 @@ $("#places-submit").on('click', function()  {
             var icon = placesResults[i].icon;
             var iconTD = $("<td>")
             var iconImage = $("<img>").attr('src', icon);
+            iconImage.addClass("icon")
             iconTD.append(iconImage);
             var lat = placesResults[i].geometry.location.lat;
             var lng = placesResults[i].geometry.location.lng;
@@ -190,6 +185,7 @@ $("#places-submit").on('click', function()  {
             console.log(placeId);
             iconMap.attr("data-name", placeId)
             iconMap.attr("id", "map-search");
+            
         
             iconMap.attr("src", mapsIcon);
             iconDiv.append(iconMap);
@@ -209,8 +205,30 @@ $(document).on('click', "#map-search", function() {
     $("#map-div").empty();
     var placeID = $(this).attr("data-name");
     console.log(placeID);
+    $("#mapModal").modal();
+
+
 
     var iframe = $('<iframe frameborder=0 style="border:0" src=https://www.google.com/maps/embed/v1/place?key=AIzaSyB8GERsvE3gXS0XvGeTLpol5NpS9kZgEIc&q=place_id:' + placeID + '></iframe>');
     $("#map-div").append(iframe);
-    });
+    
+});
+
+$("#logo").on('click', function()  {
+    reloadPage();
+})
+
+// $("#bug-div").on("click", ".delete", function()  {
+//     console.log("hello");
+// })
+
+var reloadPage = function()  {
+    $("#map-div").empty();
+    $("tr").empty();
+    $("#places-area").addClass("hidden");
+    // $("#places-search-div").addClass("hidden");
+    $("#bug-area").removeClass("hidden");
+}
+
+
 

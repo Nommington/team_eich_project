@@ -1,4 +1,0 @@
-
-
-//Firebase config
-

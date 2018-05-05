@@ -2,12 +2,59 @@
     display: none;
 }
 
+#logo  {
+    width: 50px;
+    height: 50px;
+    position: relative;
+    bottom: 10px;
+    right: 5px;
+
+}
+
+
+
+body  {
+    background-color: aliceblue;
+    height: 100%;
+}
+
+.container  {
+    background-color: #fff;
+    height: 100%;
+}
+
+span {
+    font-size: 45px;
+    color: #eeeeee;
+    text-shadow: 5px 2px #23292f;
+}
+
+.jumbotron  {
+    background-image: url(../images/Header.jpg);
+    background-size: cover;
+    text-align: center;
+    
+}
+
 img  {
     height: 50%;
     margin: 0 auto;
     border: 0px;
     position: relative;
     bottom: auto;
+}
+
+#map-div  {
+    margin: 0 auto;
+    margin-bottom: 20px;
+    width: 100%;
+    height: 300px;
+}
+
+.icon,
+#map-search  {
+   width: 32px;
+   height: 32px; 
 }
 
 #search-term  {
@@ -25,6 +72,19 @@ img  {
     padding: 15px; 
     position: relative;
     top: 0; left: 0; bottom: 0; right: 0;
+}
+
+.delete  {
+    height: 22px;
+    width: 22px;
+    margin-bottom: 10px;
+    bottom: 5px;
+}
+
+.places-button:hover,
+.icon:hover,
+#map-search:hover {
+    box-shadow: .5px 1px .8px 1px #eeeeee;
 }
 
 .places-div  {
@@ -59,6 +119,7 @@ img  {
     border-radius: 10px;
 }
 
+
 .col-sm-2:nth-child(5n+1) {
     background-color: #73a8de;
 }
@@ -76,7 +137,7 @@ img  {
 }
 
 .col-sm-2:nth-child(5n+5) {
-    background-color: #1d446d;
+    background-color: #316398;
 }
 
 .places-button {
@@ -89,7 +150,7 @@ img  {
 
 .temp {
     font-size: 25pt;
-   
+   margin-top: 10%;
     margin-bottom: 10%;
     right: 75px;
 }
@@ -97,6 +158,20 @@ img  {
 .location {
     height: 15%;
     margin-bottom: 15px;
+    font-size: 14px;
 }
 
+iframe  {
+    width: 100%;
+    height: 100%;
+}
 
+#footer {
+    font-size: 16px;
+    text-align: center;
+    padding: 10px;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    background-color: #5c8a8a;
+}
