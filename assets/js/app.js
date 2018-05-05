@@ -115,7 +115,7 @@ database.ref().on("child_added", function(snapshot) {
         var locationDiv = $("<p class='location'>").text(location);
         var sumDiv = $("<img class='img-responsive'>")
         sumDiv.attr("id", conditions);
-        var tempDiv = $("<p class='temp'>").text(temp);
+        var tempDiv = $("<p class='temp'>").text(temp + String.fromCharCode(176));
 
         //Append all divs to the button then add button to container
         // bugDiv.append(deleteButton);

@@ -16,17 +16,27 @@
 body  {
     background-color: aliceblue;
     height: 100%;
+    font-family: 'Comfortaa', cursive;
+    font-weight: bold;
 }
 
 .container  {
     background-color: #fff;
     height: 100%;
+    box-shadow: 2px 2px 1px 1px #6e8cab;
 }
 
 span {
     font-size: 45px;
     color: #eeeeee;
     text-shadow: 5px 2px #23292f;
+    font-family: 'Contrail One', cursive;
+    font-weight: bold;
+}
+
+h4  {
+    font-family: 'Contrail One', cursive;
+    font-weight: bold;
 }
 
 .jumbotron  {
@@ -155,6 +165,8 @@ img  {
    margin-top: 10%;
     margin-bottom: 10%;
     right: 75px;
+    font-family: 'VT323', monospace;
+    text-shadow: 2px 1px #23292f;
 }
 
 .location {
@@ -169,11 +181,15 @@ iframe  {
 }
 
 #footer {
-    font-size: 16px;
+    font-size: 15px;
     text-align: center;
-    padding: 10px;
+    padding-top: 15px;
     bottom: 0;
     width: 100%;
-    height: 40px;
-    background-color: #5c8a8a;
+    height: 45px;
+    background-color: #2e7dcf;
+    margin-top: 30px;
+    color: #fff;
+    border-top: 2px solid #316398;
+    border-bottom: 2px solid #316398;
 }
