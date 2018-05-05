@@ -55,6 +55,13 @@ var convertLocation = function() {
             lat: latitude,
             lon: longitude
         }
+
+        swal({
+            title: "You added a new location!",
+            text: location,
+            icon: "success",
+            button: "Close",
+          });
         // Push to firebase
         database.ref().push(newLocation)
 
@@ -122,6 +129,7 @@ database.ref().on("child_added", function(snapshot) {
         placesButton.addClass("places-button")
         placesButton.val(latitude + "," + longitude);
         placesButton.attr('src', "assets/images/places.png");
+        placesButton.attr("data-name", location);
         bugDiv.append(placesButton);
 
         $("#bug-area").append(bugDiv);
@@ -133,6 +141,8 @@ database.ref().on("child_added", function(snapshot) {
 $("#bug-area").on('click', ".places-button", function() {
     $("#bug-area").addClass("hidden");
     // $("#places-search-div").removeClass("hidden");
+    var name = $(this).attr("data-name");
+    $("#search-title").text("Search places near " + name);
     $("#myModal").modal();
     var location = $(this).val();
     $("#location-input").val(location);
@@ -186,6 +196,7 @@ $("#places-submit").on('click', function()  {
             var placeId = placesResults[i].place_id;
             console.log(placeId);
             iconMap.attr("data-name", placeId)
+            iconMap.attr("data-title", name)
             iconMap.attr("id", "map-search");
             
         
@@ -206,7 +217,9 @@ $("#places-submit").on('click', function()  {
 $(document).on('click', "#map-search", function() {
     $("#map-div").empty();
     var placeID = $(this).attr("data-name");
-    console.log(placeID);
+    var placeName = $(this).attr("data-title");
+    $("#map-name").text(placeName);
+    
     $("#mapModal").modal();
 
 

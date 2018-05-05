@@ -61,7 +61,9 @@ img  {
     width: 70%;
 }
 
-
+#bug-area  {
+    margin-bottom: 15px;
+}
 .bug-div  {
     display: inline-block;
     height: 130px;
