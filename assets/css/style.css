@@ -161,6 +161,17 @@ img  {
     width: 32px;
 }
 
+.modal-header  {
+    background-color: #2e7dcf;
+    color: #fff;
+
+}
+
+.modal-footer  {
+    background-color: #2e7dcf;
+}
+
+
 .temp {
     font-size: 25pt;
    margin-top: 10%;
@@ -174,6 +185,7 @@ img  {
     height: 15%;
     margin-bottom: 15px;
     font-size: 14px;
+    text-shadow: 2px 1px #23292f;
 }
 
 iframe  {
