@@ -11,7 +11,8 @@ var mapsKey = "&key=AIzaSyD-9rm4gqljdlkdqlJyeFe2YHKfEIS3g6o";
 //Weather API
 var weatherUrl = "https://api.openweathermap.org/data/2.5/forecast?id=524901&APPID=592238e535047ebb1662bcb732c20eb9&lat="
 //CORS Proxy
-var cors = "http://cors-proxy.htmldriven.com/?url="
+// var cors = "http://cors-proxy.htmldriven.com/?url="
+var cors = "https://cors-anywhere.herokuapp.com/"
 
 var config = {
     apiKey: "AIzaSyBAY1lHQ0eUQ7hBjeAfWo_xSBE4Q3eEkC4",
@@ -102,8 +103,8 @@ database.ref().on("child_added", function(snapshot) {
         var bugDiv = $("<div>")
         bugDiv.addClass("bug-div col-xs-4 col-sm-2")
         
-        // var deleteButton =  $("<img class='delete'>");
-        // deleteButton.attr("src", "assets/images/delete.png");
+        var deleteButton =  $("<img class='delete'>");
+        deleteButton.attr("src", "assets/images/delete.png");
         var locationDiv = $("<p class='location'>").text(location);
         var sumDiv = $("<img class='img-responsive'>")
         sumDiv.attr("id", conditions);
@@ -155,15 +156,16 @@ $("#places-submit").on('click', function()  {
     $("#places-area").removeClass("hidden");
 
     var encode = mapsUrl + nearBy + locate + location + "&radius=" + distance + "&type=" + type + mapsKey;
-    var encodeCors = encodeURIComponent(encode);
-    var queryURL = cors + encodeCors;
+    // var encodeCors = encodeURIComponent(encode);
+    var queryURL = cors + encode;
 
     $.ajax({
         url: queryURL,
         method: "GET"
     }).then(function(response)  {
-        var places = JSON.parse(response.body);
-        var placesResults = places.results;
+        
+        // var places = response.results
+        var placesResults = response.results;
         console.log(placesResults);
         for(i = 0; i < 10; i++)  {
             var icon = placesResults[i].icon;
